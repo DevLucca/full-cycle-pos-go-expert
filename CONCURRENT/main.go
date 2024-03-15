@@ -20,11 +20,14 @@ type FastestAPI struct {
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("CEP não informado")
-		os.Exit(1)
 		return
 	}
 	var cep string = os.Args[1]
 
+	startAll := time.Now()
+	defer func() {
+		fmt.Println("Tempo total: ", time.Since(startAll).Milliseconds(), "ms")
+	}()
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 
@@ -75,10 +78,10 @@ func main() {
 
 		json2, _ := json.MarshalIndent(data, "", "  ")
 		fmt.Printf("API mais rápida: %s | Resposta em: %dms\nDados: %s\n", fastest.API, fastest.TimeTook.Milliseconds(), string(json2))
-		os.Exit(0)
+		return
 	case <-ctx.Done():
 		fmt.Println("timeout")
-		os.Exit(1)
+		return
 	}
 }
 
