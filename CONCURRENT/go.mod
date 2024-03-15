@@ -1,3 +1,3 @@
-module github.com/lccmrx/full-cycle-pos-go-expert/cep-concurrent
+module github.com/lccmrx/full-cycle-pos-go-expert/fast-cep
 
 go 1.22.0

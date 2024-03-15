@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"sync"
 	"time"
 )
 
@@ -27,7 +28,7 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 
-	// starter := make(chan bool)
+	starter := make(chan bool)
 	fastestCh := make(chan FastestAPI)
 
 	apis := map[string]*http.Request{
@@ -41,14 +42,14 @@ func main() {
 		}(),
 	}
 
-	// wg := sync.WaitGroup{}
+	wg := sync.WaitGroup{}
 
-	// wg.Add(len(apis))
+	wg.Add(len(apis))
 
 	for api, req := range apis {
 		go func() {
-			// wg.Done()
-			// <-starter
+			wg.Done()
+			<-starter
 			startTime := time.Now()
 			fmt.Printf("calling `%s` \t-----\t started at %s\n", api, startTime.Format("15:04:05.000000000"))
 			res, err := call(req)
@@ -64,8 +65,8 @@ func main() {
 		}()
 	}
 
-	// wg.Wait()
-	// close(starter)
+	wg.Wait()
+	close(starter)
 
 	select {
 	case fastest := <-fastestCh:
