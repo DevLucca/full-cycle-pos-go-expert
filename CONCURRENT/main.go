@@ -28,8 +28,6 @@ func main() {
 	defer func() {
 		fmt.Println("Tempo total: ", time.Since(startAll).Milliseconds(), "ms")
 	}()
-	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
-	defer cancel()
 
 	starter := make(chan bool)
 	fastestCh := make(chan FastestAPI)
@@ -70,6 +68,8 @@ func main() {
 
 	wg.Wait()
 	close(starter)
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	defer cancel()
 
 	select {
 	case fastest := <-fastestCh:
