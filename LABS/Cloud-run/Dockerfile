@@ -1,0 +1,19 @@
+FROM golang:1.22-alpine AS builder
+
+WORKDIR /app
+
+RUN apk update && apk upgrade && apk add --no-cache ca-certificates
+RUN update-ca-certificates
+
+COPY . .
+
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLE=0 go build -C cmd/ -ldflags="-s -w" -o server .
+
+FROM scratch
+
+COPY --from=builder /app/cmd/server /usr/bin/server
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+
+EXPOSE 8000
+
+ENTRYPOINT ["server"]
