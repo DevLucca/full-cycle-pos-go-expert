@@ -1,0 +1,16 @@
+services:
+  zipkin:
+    image: openzipkin/zipkin:latest
+    restart: always
+    ports:
+      - "9411:9411"
+
+  zipcode-api:
+    build: ./zipcode
+    ports:
+      - 8000:8000
+
+  weather-api:
+    build: ./weather
+    ports:
+      - 8001:8001
