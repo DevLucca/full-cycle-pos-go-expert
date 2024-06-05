@@ -58,7 +58,7 @@ func run() (err error) {
 		})
 		if err != nil {
 			if err.Error() == "can not find zipcode" {
-				http.Error(w, err.Error(), http.StatusUnprocessableEntity)
+				http.Error(w, err.Error(), http.StatusNotFound)
 				return
 			}
 

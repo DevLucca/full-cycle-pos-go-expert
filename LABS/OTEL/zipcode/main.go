@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"log"
 	"net"
 	"net/http"
@@ -67,6 +68,13 @@ func run() (err error) {
 		}
 
 		var data any
+
+		if 300 <= res.StatusCode {
+			body, _ := io.ReadAll(res.Body)
+			http.Error(w, string(body), res.StatusCode)
+			return
+		}
+
 		err = json.NewDecoder(res.Body).Decode(&data)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
