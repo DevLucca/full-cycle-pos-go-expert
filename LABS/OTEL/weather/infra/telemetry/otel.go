@@ -3,17 +3,16 @@ package telemetry
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/exporters/zipkin"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/sdk/resource"
 	"go.opentelemetry.io/otel/sdk/trace"
 	semconv "go.opentelemetry.io/otel/semconv/v1.21.0"
-)
-
-const (
-	COLLECTOR_URL string = "http://zipkin:9411/api/v2/spans"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 // New bootstraps the OpenTelemetry pipeline.
@@ -44,8 +43,12 @@ func SetupProvider(ctx context.Context, serviceName string) (shutdown func(conte
 		),
 	)
 
+	grpcConn, err := grpc.NewClient("otelcol:4317",
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	)
+
 	// Set up trace provider.
-	tracerProvider, err := newTraceProvider(resource)
+	tracerProvider, err := newTraceProvider(ctx, grpcConn, resource)
 	if err != nil {
 		handleErr(err)
 		return
@@ -56,10 +59,11 @@ func SetupProvider(ctx context.Context, serviceName string) (shutdown func(conte
 	return
 }
 
-func newTraceProvider(resource *resource.Resource) (*trace.TracerProvider, error) {
-	exporter, _ := zipkin.New(
-		COLLECTOR_URL,
-	)
+func newTraceProvider(ctx context.Context, grpcConn *grpc.ClientConn, resource *resource.Resource) (*trace.TracerProvider, error) {
+	exporter, err := otlptracegrpc.New(ctx, otlptracegrpc.WithGRPCConn(grpcConn))
+	if err != nil {
+		return nil, fmt.Errorf("failed to create trace exporter: %w", err)
+	}
 
 	bsp := trace.NewBatchSpanProcessor(exporter)
 
