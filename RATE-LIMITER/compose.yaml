@@ -1,0 +1,16 @@
+services:
+  api:
+    build:
+      context: .
+    ports:
+      - 8080:8080
+
+    environment:
+      RATE_LIMITER_MAX_REQUESTS_PER_TIME: "5"
+      RATE_LIMITER_TIMEFRAME: "RPM"
+      RATE_LIMITER_HEADER_LIMITER: "{\"x-api-key\": 1}"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
