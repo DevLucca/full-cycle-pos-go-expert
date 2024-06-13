@@ -12,14 +12,13 @@ import (
 func main() {
 	ratelimit := gorlim.New(
 		backend.NewRedis("redis:6379"),
-		gorlim.WithRequestLimit(5),
-		gorlim.WithTimeframe(gorlim.RPM),
 	)
 
 	http.Handle("GET /", gorlim.Wrap(ratelimit,
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
 				var out any
+				w.Header().Set("Content-Type", "application/json")
 				json.Unmarshal([]byte(`{"ok": true}`), &out)
 				json.NewEncoder(w).Encode(out)
 			}),
