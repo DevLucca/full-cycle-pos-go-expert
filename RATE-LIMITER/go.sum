@@ -8,8 +8,10 @@ github.com/go-redis/redis/v8 v8.11.5 h1:AcZZR7igkdvfVmQTPnu9WE37LRrO/YrBH5zWyjDC
 github.com/go-redis/redis/v8 v8.11.5/go.mod h1:gREzHqY1hg6oD9ngVRbLStwAWKhA0FEgq8Jd4h5lpwo=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
-github.com/lccmrx/gorlim v0.0.8 h1:+FsKsfOT8oQwmKDyaIWhruBfnacqTiEYMq3gV4JbsyQ=
-github.com/lccmrx/gorlim v0.0.8/go.mod h1:rbip8L00xDKtHqXdSP0cBAi/a05HOWQlQWegE/2IkFA=
+github.com/im7mortal/kmutex v1.0.1 h1:zAACzjwD+OEknDqnLdvRa/BhzFM872EBwKijviGLc9Q=
+github.com/im7mortal/kmutex v1.0.1/go.mod h1:f71c/Ugk/+58OHRAgvgzPP3QEiWGUjK13fd8ozfKWdo=
+github.com/lccmrx/gorlim v0.0.9 h1:fAiLhirGcj6bErKMoz6+3ZA75ZTSo/+IO4BgeBccxIo=
+github.com/lccmrx/gorlim v0.0.9/go.mod h1:Y7sxz5Q9JLDDX4UGKqBYRQugv4DhAHAaCTWl7sEqhPc=
 github.com/nxadm/tail v1.4.8 h1:nPr65rt6Y5JFSKQO7qToXr7pePgD6Gwiw05lkbyAQTE=
 github.com/nxadm/tail v1.4.8/go.mod h1:+ncqLTQzXmGhMZNUePPaPqPvBxHAIsmXswZKocGu+AU=
 github.com/onsi/ginkgo v1.16.5 h1:8xi0RTUf59SOSfEtZMvwTvXYMzG4gV23XVHOZiXNtnE=
