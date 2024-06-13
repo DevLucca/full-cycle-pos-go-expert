@@ -2,7 +2,7 @@ module api
 
 go 1.22.2
 
-require github.com/lccmrx/gorlim v0.0.7
+require github.com/lccmrx/gorlim v0.0.8
 
 require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
