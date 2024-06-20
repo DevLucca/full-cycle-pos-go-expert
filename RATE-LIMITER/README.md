@@ -4,6 +4,10 @@ Foi criado uma biblioteca, na qual subi em um outro [repositório](https://githu
 
 é possível configurar o Gorlim de diversas formas, programaticamente (runtime) ou environments. No [Compose](./compose.yaml#api), deixei configurado uns valores simbólicos.
 
+## Rate Limiter Package
+
+O código do rate limiter está disponível em meu repositório, porém como há requisito de o código estar também na entrega do projeto, adicionei o `go mod vendor`, tornando o meu repositório parte deste também. Pode ser encontrado [aqui](./vendor/github.com/lccmrx/gorlim/)
+
 ## Para subir
 
 Criei uma API simples com o Go HTTP. E associei o Gorlim a ela.
