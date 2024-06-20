@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/lccmrx/gorlim"
 	"github.com/lccmrx/gorlim/backend"
@@ -11,7 +12,7 @@ import (
 
 func main() {
 	ratelimit := gorlim.New(
-		backend.NewRedis("redis:6379"),
+		backend.NewRedis(os.Getenv("REDIS_ADDR")),
 	)
 
 	http.Handle("GET /", gorlim.Wrap(ratelimit,
