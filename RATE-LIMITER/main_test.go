@@ -73,8 +73,6 @@ func Test_IPRPMRate(t *testing.T) {
 
 	wg.Wait()
 
-	fmt.Println(successCount.Load())
-
 	assert.Equal(t, int64(5), successCount.Load())
 }
 
@@ -102,8 +100,6 @@ func Test_NotEqualIPRPMRate(t *testing.T) {
 	}
 
 	wg.Wait()
-
-	fmt.Println(successCount.Load())
 
 	assert.Equal(t, int64(requestCount), successCount.Load())
 }
@@ -133,8 +129,6 @@ func Test_HeaderRPMRate(t *testing.T) {
 
 	wg.Wait()
 
-	fmt.Println(successCount.Load())
-
 	assert.Equal(t, int64(1), successCount.Load())
 }
 
@@ -162,8 +156,6 @@ func Test_NotEqualHeaderRPMRate(t *testing.T) {
 	}
 
 	wg.Wait()
-
-	fmt.Println(successCount.Load())
 
 	assert.Equal(t, int64(requestCount), successCount.Load())
 }
@@ -197,8 +189,6 @@ func Test_RPMRate(t *testing.T) {
 	}
 
 	wg.Wait()
-
-	fmt.Println(successCount.Load())
 
 	assert.Equal(t, int64(6), successCount.Load())
 }
