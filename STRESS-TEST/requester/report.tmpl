@@ -1,0 +1,25 @@
+
+Stress Test - Request report.
+=================================
+Took {{ .totalTime }} to complete
+Total requests:       {{ .totalRequests }} requests
+Completed requests:   {{ .completedRequests }} requests
+
+---------------------------------
+Time Distribution:
+    - P99th: {{ .p99th }}
+    - P75th: {{ .p75th }}
+    - P50th: {{ .p50th }}
+---------------------------------
+HTTP Status Code Distribution:
+    - 2xx:             {{ index .statusCodeDistributionCount 2 }} requests
+    - 4xx:             {{ index .statusCodeDistributionCount 4 }} requests
+    - 5xx:             {{ index .statusCodeDistributionCount 5 }} requests
+---------------------------------
+Failed requests:
+    {{ .errorCount }} requests failed
+{{ if .errors }}
+    {{ range .errors}}
+    {{ . }}
+    {{end}}
+{{end}}
