@@ -175,7 +175,7 @@ func Test_RPMRate(t *testing.T) {
 			r, _ := http.NewRequest("GET", "http://localhost:8080", nil)
 
 			if i%2 == 0 {
-				r.Header.Add("X-Real-Ip", "ip-test")
+				r.Header.Add("X-Real-Ip", "ip-test-general")
 			} else {
 				r.Header.Add("x-api-key", "api-key")
 			}
